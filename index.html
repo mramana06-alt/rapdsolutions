@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAPD Solutions - ERP & Microsoft Technology Consulting</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 120, 212, 0.95) 0%, rgba(0, 90, 158, 0.95) 100%),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23f0f0f0" width="1200" height="800"/><circle fill="%23e0e0e0" cx="200" cy="200" r="100"/><circle fill="%23d0d0d0" cx="800" cy="400" r="150"/><circle fill="%23e0e0e0" cx="1000" cy="600" r="120"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 2rem 120px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #0078d4;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1.4s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Services Section */
+        .services {
+            padding: 80px 2rem;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0078d4;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #0078d4;
+        }
+
+        .service-card h3 {
+            margin-bottom: 1rem;
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Industries Section */
+        .industries {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .industry-item {
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .industry-item:hover {
+            transform: scale(1.05);
+        }
+
+        .industry-item h3 {
+            font-size: 1.3rem;
+        }
+
+        /* Solutions Section */
+        .solutions {
+            padding: 80px 2rem;
+            background: #f8f9fa;
+        }
+
+        .solutions-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .solution-box {
+            background: white;
+            padding: 2.5rem;
+            border-left: 5px solid #0078d4;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .solution-box h3 {
+            color: #0078d4;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .solution-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .solution-box li {
+            padding: 0.5rem 0;
+            color: #666;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .solution-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #0078d4;
+            font-weight: bold;
+        }
+
+        /* Why Choose Us */
+        .why-us {
+            padding: 80px 2rem;
+            background: white;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .why-us-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .why-us-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .why-us-item h3 {
+            color: #0078d4;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 80px 2rem;
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background: white;
+            color: #0078d4;
+            padding: 1rem 3rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .contact-button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #0078d4;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #0078d4;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">RAPD SOLUTIONS</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#industries">Industries</a></li>
+                <li><a href="#solutions">Solutions</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Full Spectrum ERP & Microsoft Technology Consulting</h1>
+        <p>Empowering businesses with cutting-edge technology solutions and expert implementation services</p>
+        <a href="#contact" class="cta-button">Get Started</a>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Comprehensive technology solutions tailored to your business needs</p>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">⚙️</div>
+                    <h3>ERP Implementation</h3>
+                    <p>Expert deployment of enterprise resource planning systems to streamline your business operations and maximize efficiency across all departments.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🔧</div>
+                    <h3>Technical Support</h3>
+                    <p>24/7 comprehensive support services ensuring your systems run smoothly with minimal downtime and maximum productivity.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3>Training Programs</h3>
+                    <p>Customized training solutions designed to empower your team with the knowledge and skills to leverage technology effectively.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">👥</div>
+                    <h3>IT Staffing</h3>
+                    <p>Access to highly skilled technology professionals to augment your team and fill critical roles in your organization.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>Technology Consulting</h3>
+                    <p>Strategic guidance to help you make informed decisions about technology investments and digital transformation initiatives.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <h3>Custom UI5 Solutions</h3>
+                    <p>Specialized custom UI5 development and deployment services successfully implemented across the United States.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industries Section -->
+    <section class="industries" id="industries">
+        <div class="container">
+            <h2 class="section-title">Industries We Serve</h2>
+            <p class="section-subtitle">Delivering specialized solutions across diverse sectors</p>
+            
+            <div class="industries-grid">
+                <div class="industry-item">
+                    <h3>🔬 Semiconductor</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>🛡️ Defense</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>💻 High Tech</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>🏛️ State & Local Government</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>🎓 School Districts</h3>
+                </div>
+                <div class="industry-item">
+                    <h3>🏫 Higher Education</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <h2 class="section-title">Microsoft Technology Solutions</h2>
+            <p class="section-subtitle">Leveraging the power of Microsoft ecosystem for your business success</p>
+            
+            <div class="solutions-content">
+                <div class="solution-box">
+                    <h3>Microsoft Dynamics</h3>
+                    <ul>
+                        <li>Dynamics 365 Implementation</li>
+                        <li>Business Central Solutions</li>
+                        <li>Finance & Operations</li>
+                        <li>Customer Engagement</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h3>Cloud Solutions</h3>
+                    <ul>
+                        <li>Azure Cloud Migration</li>
+                        <li>Cloud Infrastructure Setup</li>
+                        <li>Hybrid Cloud Solutions</li>
+                        <li>Cloud Security & Compliance</li>
+                    </ul>
+                </div>
+                
+                <div class="solution-box">
+                    <h3>Business Intelligence</h3>
+                    <ul>
+                        <li>Power BI Implementation</li>
+                        <li>Data Analytics</li>
+                        <li>Reporting Solutions</li>
+                        <li>Dashboard Development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us Section -->
+    <section class="why-us">
+        <div class="container">
+            <h2 class="section-title">Why Choose RAPD Solutions?</h2>
+            
+            <div class="why-us-grid">
+                <div class="why-us-item">
+                    <div class="why-us-icon">🎯</div>
+                    <h3>Proven Expertise</h3>
+                    <p>Years of experience delivering successful technology implementations across multiple industries</p>
+                </div>
+                
+                <div class="why-us-item">
+                    <div class="why-us-icon">🤝</div>
+                    <h3>Client-Focused</h3>
+                    <p>We prioritize your business goals and work as a trusted partner in your digital transformation journey</p>
+                </div>
+                
+                <div class="why-us-item">
+                    <div class="why-us-icon">⚡</div>
+                    <h3>Rapid Deployment</h3>
+                    <p>Efficient project management ensuring timely delivery without compromising quality</p>
+                </div>
+                
+                <div class="why-us-item">
+                    <div class="why-us-icon">🔒</div>
+                    <h3>Secure Solutions</h3>
+                    <p>Enterprise-grade security measures protecting your data and business operations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Ready to Transform Your Business?</h2>
+            <p>Let's discuss how RAPD Solutions can help you achieve your technology goals</p>
+            <a href="mailto:info@rapdsolutions.com" class="contact-button">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>RAPD Solutions</h3>
+                <p>Full Spectrum ERP and Microsoft Technology Consulting Firm</p>
+                <p>Delivering excellence in implementation, support, training, and staffing services.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#services">Services</a>
+                <a href="#industries">Industries</a>
+                <a href="#solutions">Solutions</a>
+                <a href="#contact">Contact</a>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📧 info@rapdsolutions.com</p>
+                <p>📞 Contact us for consultation</p>
+                <p>🌐 www.rapdsolutions.com</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                <p>Saturday: 10:00 AM - 2:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 RAPD Solutions. All rights reserved. | Solve It With RAPD</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'linear-gradient(135deg, #005a9e 0%, #004578 100%)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #0078d4 0%, #005a9e 100%)';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,576 +1,787 @@
-import React, { useState } from 'react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Agentic AI Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-const EnterpriseAgenticArchitecture = () => {
-  const [activeLayer, setActiveLayer] = useState(null);
-  const [hoveredComponent, setHoveredComponent] = useState(null);
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            color: #e2e8f0;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-  const layers = {
-    presentation: {
-      title: "Presentation Layer",
-      color: "#0ea5e9",
-      components: ["Web Portal", "Mobile Apps", "Chat Interfaces", "Voice Assistants", "API Gateway"]
-    },
-    orchestration: {
-      title: "Agent Orchestration Layer",
-      color: "#8b5cf6",
-      components: ["Master Orchestrator", "Workflow Engine", "Task Router", "Priority Manager", "Context Handler"]
-    },
-    agents: {
-      title: "AI Agents Layer",
-      color: "#f59e0b",
-      components: ["Task Agents", "Research Agents", "Code Agents", "Analysis Agents", "Communication Agents"]
-    },
-    frameworks: {
-      title: "Frameworks & Tools",
-      color: "#10b981",
-      components: ["LangGraph", "AutoGen", "CrewAI", "Semantic Kernel", "OpenAI SDK"]
-    },
-    infrastructure: {
-      title: "Data & Infrastructure",
-      color: "#ef4444",
-      components: ["Vector DB", "Knowledge Base", "Event Bus", "Model Registry", "Monitoring"]
-    },
-    enterprise: {
-      title: "Enterprise Systems",
-      color: "#6366f1",
-      components: ["CRM", "ERP", "HRIS", "Data Warehouse", "Legacy APIs"]
-    }
-  };
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  const integrationFlows = [
-    { from: "User Request", to: "API Gateway", type: "sync" },
-    { from: "API Gateway", to: "Master Orchestrator", type: "sync" },
-    { from: "Master Orchestrator", to: "Task Agents", type: "async" },
-    { from: "Task Agents", to: "LLM Services", type: "sync" },
-    { from: "Task Agents", to: "Vector DB", type: "sync" },
-    { from: "Task Agents", to: "Enterprise Systems", type: "async" }
-  ];
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
 
-  return (
-    <div style={{
-      minHeight: '100vh',
-      background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%)',
-      fontFamily: '"IBM Plex Sans", -apple-system, sans-serif',
-      color: '#e2e8f0',
-      padding: '40px 20px',
-      position: 'relative',
-      overflow: 'hidden'
-    }}>
-      {/* Background grid pattern */}
-      <div style={{
-        position: 'absolute',
-        inset: 0,
-        backgroundImage: `
-          linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px)
-        `,
-        backgroundSize: '50px 50px',
-        pointerEvents: 'none'
-      }} />
+        .orb-1 {
+            top: 10%;
+            left: 5%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+            filter: blur(40px);
+        }
 
-      {/* Floating orbs */}
-      <div style={{
-        position: 'absolute',
-        top: '10%',
-        left: '5%',
-        width: '300px',
-        height: '300px',
-        background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(40px)',
-        pointerEvents: 'none'
-      }} />
-      <div style={{
-        position: 'absolute',
-        bottom: '20%',
-        right: '10%',
-        width: '400px',
-        height: '400px',
-        background: 'radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%)',
-        borderRadius: '50%',
-        filter: 'blur(60px)',
-        pointerEvents: 'none'
-      }} />
+        .orb-2 {
+            bottom: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
+            filter: blur(60px);
+        }
 
-      <div style={{ maxWidth: '1400px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        {/* Header */}
-        <header style={{ textAlign: 'center', marginBottom: '50px' }}>
-          <div style={{
-            display: 'inline-block',
-            padding: '8px 20px',
-            background: 'rgba(139, 92, 246, 0.15)',
-            border: '1px solid rgba(139, 92, 246, 0.3)',
-            borderRadius: '100px',
-            fontSize: '12px',
-            fontWeight: '600',
-            letterSpacing: '2px',
-            textTransform: 'uppercase',
-            color: '#a78bfa',
-            marginBottom: '20px'
-          }}>
-            Reference Architecture
-          </div>
-          <h1 style={{
-            fontSize: 'clamp(32px, 5vw, 56px)',
-            fontWeight: '700',
-            margin: '0 0 16px 0',
-            background: 'linear-gradient(135deg, #fff 0%, #a78bfa 50%, #0ea5e9 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            letterSpacing: '-1px'
-          }}>
-            Enterprise Agentic AI Architecture
-          </h1>
-          <p style={{
-            fontSize: '18px',
-            color: '#94a3b8',
-            maxWidth: '700px',
-            margin: '0 auto',
-            lineHeight: '1.6'
-          }}>
-            Multi-layered architecture for building scalable, secure, and production-ready AI agent systems
-          </p>
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(139, 92, 246, 0.15);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #a78bfa;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            margin: 0 0 16px 0;
+            background: linear-gradient(135deg, #fff 0%, #a78bfa 50%, #0ea5e9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #94a3b8;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .layers-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .layer {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .layer:hover {
+            transform: scale(1.01);
+        }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .layer-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .layer-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #f1f5f9;
+        }
+
+        .layer-flow {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .components {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-left: 64px;
+        }
+
+        .component {
+            padding: 10px 18px;
+            background: rgba(51, 65, 85, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #cbd5e1;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .component:hover {
+            background: rgba(51, 65, 85, 0.8);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 860px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin: 0 0 24px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-label {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 15px;
+        }
+
+        .step-desc {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        .step-arrow {
+            color: #475569;
+            font-size: 18px;
+        }
+
+        .tech-category {
+            margin-bottom: 20px;
+        }
+
+        .tech-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .tech-label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-item {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #e2e8f0;
+        }
+
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .agent-card {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid;
+        }
+
+        .agent-role {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .agent-type {
+            font-size: 17px;
+            font-weight: 600;
+            color: #f1f5f9;
+            margin-bottom: 8px;
+        }
+
+        .agent-desc {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .agent-tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .agent-tool {
+            padding: 4px 10px;
+            background: rgba(51, 65, 85, 0.6);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #cbd5e1;
+        }
+
+        .security-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .security-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .security-icon {
+            font-size: 24px;
+        }
+
+        .security-label {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .security-desc {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        footer p {
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        /* Layer-specific colors */
+        .layer-1 .layer-number { background: linear-gradient(135deg, #0ea5e930 0%, #0ea5e910 100%); border: 2px solid #0ea5e9; color: #0ea5e9; }
+        .layer-1:hover { background: linear-gradient(135deg, #0ea5e915 0%, #0ea5e908 100%); border-color: #0ea5e950; }
+        .layer-1:hover .component { border-color: #0ea5e9; color: #0ea5e9; background: #0ea5e925; }
+
+        .layer-2 .layer-number { background: linear-gradient(135deg, #8b5cf630 0%, #8b5cf610 100%); border: 2px solid #8b5cf6; color: #8b5cf6; }
+        .layer-2:hover { background: linear-gradient(135deg, #8b5cf615 0%, #8b5cf608 100%); border-color: #8b5cf650; }
+        .layer-2:hover .component { border-color: #8b5cf6; color: #8b5cf6; background: #8b5cf625; }
+
+        .layer-3 .layer-number { background: linear-gradient(135deg, #f59e0b30 0%, #f59e0b10 100%); border: 2px solid #f59e0b; color: #f59e0b; }
+        .layer-3:hover { background: linear-gradient(135deg, #f59e0b15 0%, #f59e0b08 100%); border-color: #f59e0b50; }
+        .layer-3:hover .component { border-color: #f59e0b; color: #f59e0b; background: #f59e0b25; }
+
+        .layer-4 .layer-number { background: linear-gradient(135deg, #10b98130 0%, #10b98110 100%); border: 2px solid #10b981; color: #10b981; }
+        .layer-4:hover { background: linear-gradient(135deg, #10b98115 0%, #10b98108 100%); border-color: #10b98150; }
+        .layer-4:hover .component { border-color: #10b981; color: #10b981; background: #10b98125; }
+
+        .layer-5 .layer-number { background: linear-gradient(135deg, #ef444430 0%, #ef444410 100%); border: 2px solid #ef4444; color: #ef4444; }
+        .layer-5:hover { background: linear-gradient(135deg, #ef444415 0%, #ef444408 100%); border-color: #ef444450; }
+        .layer-5:hover .component { border-color: #ef4444; color: #ef4444; background: #ef444425; }
+
+        .layer-6 .layer-number { background: linear-gradient(135deg, #6366f130 0%, #6366f110 100%); border: 2px solid #6366f1; color: #6366f1; }
+        .layer-6:hover { background: linear-gradient(135deg, #6366f115 0%, #6366f108 100%); border-color: #6366f150; }
+        .layer-6:hover .component { border-color: #6366f1; color: #6366f1; background: #6366f125; }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="badge">Reference Architecture</div>
+            <h1>Enterprise Agentic AI Architecture</h1>
+            <p class="subtitle">Multi-layered architecture for building scalable, secure, and production-ready AI agent systems</p>
         </header>
 
-        {/* Main Architecture Diagram */}
-        <div style={{
-          background: 'rgba(15, 23, 42, 0.8)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(148, 163, 184, 0.1)',
-          borderRadius: '24px',
-          padding: '40px',
-          marginBottom: '40px'
-        }}>
-          {/* Layer Stack */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-            {Object.entries(layers).map(([key, layer], index) => (
-              <div
-                key={key}
-                onMouseEnter={() => setActiveLayer(key)}
-                onMouseLeave={() => setActiveLayer(null)}
-                style={{
-                  background: activeLayer === key 
-                    ? `linear-gradient(135deg, ${layer.color}15 0%, ${layer.color}08 100%)`
-                    : 'rgba(30, 41, 59, 0.5)',
-                  border: `1px solid ${activeLayer === key ? layer.color + '50' : 'rgba(148, 163, 184, 0.1)'}`,
-                  borderRadius: '16px',
-                  padding: '24px',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  transform: activeLayer === key ? 'scale(1.01)' : 'scale(1)'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    background: `linear-gradient(135deg, ${layer.color}30 0%, ${layer.color}10 100%)`,
-                    border: `2px solid ${layer.color}`,
-                    borderRadius: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '20px',
-                    fontWeight: '700',
-                    color: layer.color
-                  }}>
-                    {index + 1}
-                  </div>
-                  <div>
-                    <h3 style={{
-                      margin: 0,
-                      fontSize: '20px',
-                      fontWeight: '600',
-                      color: '#f1f5f9'
-                    }}>{layer.title}</h3>
-                  </div>
-                  {/* Connection indicator */}
-                  {index < Object.keys(layers).length - 1 && (
-                    <div style={{
-                      marginLeft: 'auto',
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '8px',
-                      color: '#64748b',
-                      fontSize: '13px'
-                    }}>
-                      <span>↓ Integration Flow</span>
+        <!-- Main Architecture Layers -->
+        <div class="card">
+            <div class="layers-stack">
+                <!-- Layer 1: Presentation -->
+                <div class="layer layer-1">
+                    <div class="layer-header">
+                        <div class="layer-number">1</div>
+                        <div class="layer-title">Presentation Layer</div>
+                        <div class="layer-flow">↓ Integration Flow</div>
                     </div>
-                  )}
-                </div>
-                
-                {/* Components */}
-                <div style={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: '10px',
-                  marginLeft: '64px'
-                }}>
-                  {layer.components.map((comp, i) => (
-                    <div
-                      key={i}
-                      onMouseEnter={() => setHoveredComponent(comp)}
-                      onMouseLeave={() => setHoveredComponent(null)}
-                      style={{
-                        padding: '10px 18px',
-                        background: hoveredComponent === comp 
-                          ? `${layer.color}25`
-                          : 'rgba(51, 65, 85, 0.5)',
-                        border: `1px solid ${hoveredComponent === comp ? layer.color : 'rgba(148, 163, 184, 0.15)'}`,
-                        borderRadius: '8px',
-                        fontSize: '14px',
-                        fontWeight: '500',
-                        color: hoveredComponent === comp ? layer.color : '#cbd5e1',
-                        transition: 'all 0.2s ease',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      {comp}
+                    <div class="components">
+                        <div class="component">Web Portal</div>
+                        <div class="component">Mobile Apps</div>
+                        <div class="component">Chat Interfaces</div>
+                        <div class="component">Voice Assistants</div>
+                        <div class="component">API Gateway</div>
                     </div>
-                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Integration Flow Diagram */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-          gap: '24px',
-          marginBottom: '40px'
-        }}>
-          {/* Data Flow */}
-          <div style={{
-            background: 'rgba(15, 23, 42, 0.8)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(148, 163, 184, 0.1)',
-            borderRadius: '20px',
-            padding: '32px'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#f1f5f9',
-              margin: '0 0 24px 0',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px'
-            }}>
-              <span style={{
-                width: '32px',
-                height: '32px',
-                background: 'linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%)',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '16px'
-              }}>⟲</span>
-              Request Flow
-            </h3>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-              {[
-                { step: 1, label: "User Request", desc: "Web/Mobile/API", color: "#0ea5e9" },
-                { step: 2, label: "Auth & Routing", desc: "API Gateway validates", color: "#8b5cf6" },
-                { step: 3, label: "Task Decomposition", desc: "Orchestrator breaks down task", color: "#f59e0b" },
-                { step: 4, label: "Agent Execution", desc: "Specialized agents process", color: "#10b981" },
-                { step: 5, label: "Tool Calling", desc: "RAG, APIs, Enterprise systems", color: "#ef4444" },
-                { step: 6, label: "Response Synthesis", desc: "Aggregated result returned", color: "#6366f1" }
-              ].map((item, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-                  <div style={{
-                    width: '40px',
-                    height: '40px',
-                    background: `${item.color}20`,
-                    border: `2px solid ${item.color}`,
-                    borderRadius: '50%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '14px',
-                    fontWeight: '700',
-                    color: item.color,
-                    flexShrink: 0
-                  }}>{item.step}</div>
-                  <div style={{ flex: 1 }}>
-                    <div style={{ fontWeight: '600', color: '#e2e8f0', fontSize: '15px' }}>{item.label}</div>
-                    <div style={{ color: '#64748b', fontSize: '13px' }}>{item.desc}</div>
-                  </div>
-                  {i < 5 && (
-                    <div style={{ color: '#475569', fontSize: '18px' }}>→</div>
-                  )}
+                <!-- Layer 2: Orchestration -->
+                <div class="layer layer-2">
+                    <div class="layer-header">
+                        <div class="layer-number">2</div>
+                        <div class="layer-title">Agent Orchestration Layer</div>
+                        <div class="layer-flow">↓ Integration Flow</div>
+                    </div>
+                    <div class="components">
+                        <div class="component">Master Orchestrator</div>
+                        <div class="component">Workflow Engine</div>
+                        <div class="component">Task Router</div>
+                        <div class="component">Priority Manager</div>
+                        <div class="component">Context Handler</div>
+                    </div>
                 </div>
-              ))}
+
+                <!-- Layer 3: AI Agents -->
+                <div class="layer layer-3">
+                    <div class="layer-header">
+                        <div class="layer-number">3</div>
+                        <div class="layer-title">AI Agents Layer</div>
+                        <div class="layer-flow">↓ Integration Flow</div>
+                    </div>
+                    <div class="components">
+                        <div class="component">Task Agents</div>
+                        <div class="component">Research Agents</div>
+                        <div class="component">Code Agents</div>
+                        <div class="component">Analysis Agents</div>
+                        <div class="component">Communication Agents</div>
+                    </div>
+                </div>
+
+                <!-- Layer 4: Frameworks -->
+                <div class="layer layer-4">
+                    <div class="layer-header">
+                        <div class="layer-number">4</div>
+                        <div class="layer-title">Frameworks & Tools</div>
+                        <div class="layer-flow">↓ Integration Flow</div>
+                    </div>
+                    <div class="components">
+                        <div class="component">LangGraph</div>
+                        <div class="component">AutoGen</div>
+                        <div class="component">CrewAI</div>
+                        <div class="component">Semantic Kernel</div>
+                        <div class="component">OpenAI SDK</div>
+                    </div>
+                </div>
+
+                <!-- Layer 5: Infrastructure -->
+                <div class="layer layer-5">
+                    <div class="layer-header">
+                        <div class="layer-number">5</div>
+                        <div class="layer-title">Data & Infrastructure</div>
+                        <div class="layer-flow">↓ Integration Flow</div>
+                    </div>
+                    <div class="components">
+                        <div class="component">Vector DB</div>
+                        <div class="component">Knowledge Base</div>
+                        <div class="component">Event Bus</div>
+                        <div class="component">Model Registry</div>
+                        <div class="component">Monitoring</div>
+                    </div>
+                </div>
+
+                <!-- Layer 6: Enterprise Systems -->
+                <div class="layer layer-6">
+                    <div class="layer-header">
+                        <div class="layer-number">6</div>
+                        <div class="layer-title">Enterprise Systems</div>
+                    </div>
+                    <div class="components">
+                        <div class="component">CRM</div>
+                        <div class="component">ERP</div>
+                        <div class="component">HRIS</div>
+                        <div class="component">Data Warehouse</div>
+                        <div class="component">Legacy APIs</div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
 
-          {/* Technology Stack */}
-          <div style={{
-            background: 'rgba(15, 23, 42, 0.8)',
-            backdropFilter: 'blur(20px)',
-            border: '1px solid rgba(148, 163, 184, 0.1)',
-            borderRadius: '20px',
-            padding: '32px'
-          }}>
-            <h3 style={{
-              fontSize: '18px',
-              fontWeight: '600',
-              color: '#f1f5f9',
-              margin: '0 0 24px 0',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px'
-            }}>
-              <span style={{
-                width: '32px',
-                height: '32px',
-                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-                borderRadius: '8px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '16px'
-              }}>◈</span>
-              Technology Stack
-            </h3>
-            
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {[
-                { 
-                  category: "Frameworks", 
-                  items: ["LangGraph", "AutoGen", "CrewAI"],
-                  color: "#10b981"
-                },
-                { 
-                  category: "Platforms", 
-                  items: ["AWS Bedrock", "Azure AI", "Vertex AI"],
-                  color: "#8b5cf6"
-                },
-                { 
-                  category: "Infrastructure", 
-                  items: ["Pinecone", "Redis", "Kafka"],
-                  color: "#f59e0b"
-                },
-                { 
-                  category: "Observability", 
-                  items: ["LangSmith", "Weights & Biases", "Datadog"],
-                  color: "#0ea5e9"
-                }
-              ].map((stack, i) => (
-                <div key={i}>
-                  <div style={{
-                    fontSize: '12px',
-                    fontWeight: '600',
-                    color: stack.color,
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    marginBottom: '10px'
-                  }}>{stack.category}</div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {stack.items.map((item, j) => (
-                      <span key={j} style={{
-                        padding: '6px 14px',
-                        background: `${stack.color}15`,
-                        border: `1px solid ${stack.color}30`,
-                        borderRadius: '6px',
-                        fontSize: '13px',
-                        color: '#e2e8f0'
-                      }}>{item}</span>
-                    ))}
-                  </div>
+        <!-- Flow & Tech Stack Grid -->
+        <div class="grid-2">
+            <!-- Request Flow -->
+            <div class="card">
+                <h3 class="section-title">
+                    <span class="section-icon" style="background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);">⟲</span>
+                    Request Flow
+                </h3>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #0ea5e920; border: 2px solid #0ea5e9; color: #0ea5e9;">1</div>
+                        <div class="step-content">
+                            <div class="step-label">User Request</div>
+                            <div class="step-desc">Web/Mobile/API</div>
+                        </div>
+                        <div class="step-arrow">→</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #8b5cf620; border: 2px solid #8b5cf6; color: #8b5cf6;">2</div>
+                        <div class="step-content">
+                            <div class="step-label">Auth & Routing</div>
+                            <div class="step-desc">API Gateway validates</div>
+                        </div>
+                        <div class="step-arrow">→</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #f59e0b20; border: 2px solid #f59e0b; color: #f59e0b;">3</div>
+                        <div class="step-content">
+                            <div class="step-label">Task Decomposition</div>
+                            <div class="step-desc">Orchestrator breaks down task</div>
+                        </div>
+                        <div class="step-arrow">→</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #10b98120; border: 2px solid #10b981; color: #10b981;">4</div>
+                        <div class="step-content">
+                            <div class="step-label">Agent Execution</div>
+                            <div class="step-desc">Specialized agents process</div>
+                        </div>
+                        <div class="step-arrow">→</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #ef444420; border: 2px solid #ef4444; color: #ef4444;">5</div>
+                        <div class="step-content">
+                            <div class="step-label">Tool Calling</div>
+                            <div class="step-desc">RAG, APIs, Enterprise systems</div>
+                        </div>
+                        <div class="step-arrow">→</div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number" style="background: #6366f120; border: 2px solid #6366f1; color: #6366f1;">6</div>
+                        <div class="step-content">
+                            <div class="step-label">Response Synthesis</div>
+                            <div class="step-desc">Aggregated result returned</div>
+                        </div>
+                    </div>
                 </div>
-              ))}
             </div>
-          </div>
-        </div>
 
-        {/* Agent Types Detail */}
-        <div style={{
-          background: 'rgba(15, 23, 42, 0.8)',
-          backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(148, 163, 184, 0.1)',
-          borderRadius: '20px',
-          padding: '32px',
-          marginBottom: '40px'
-        }}>
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#f1f5f9',
-            margin: '0 0 24px 0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <span style={{
-              width: '32px',
-              height: '32px',
-              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '16px'
-            }}>⬡</span>
-            Agent Hierarchy & Coordination
-          </h3>
-
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '16px'
-          }}>
-            {[
-              {
-                type: "Orchestrator Agent",
-                role: "Master Controller",
-                desc: "Decomposes tasks, routes to specialists, aggregates results",
-                tools: ["Planner", "Router", "Monitor"],
-                color: "#8b5cf6"
-              },
-              {
-                type: "Task Agents",
-                role: "Specialist Workers",
-                desc: "Execute specific domain tasks with focused expertise",
-                tools: ["Code Gen", "Data Analysis", "Content"],
-                color: "#f59e0b"
-              },
-              {
-                type: "Tool Agents",
-                role: "System Integrators",
-                desc: "Interface with external APIs, databases, and services",
-                tools: ["API Caller", "DB Query", "File I/O"],
-                color: "#10b981"
-              },
-              {
-                type: "Validator Agents",
-                role: "Quality Control",
-                desc: "Verify outputs, check compliance, ensure accuracy",
-                tools: ["Fact Check", "Schema Validate", "Safety"],
-                color: "#ef4444"
-              }
-            ].map((agent, i) => (
-              <div key={i} style={{
-                background: 'rgba(30, 41, 59, 0.5)',
-                border: `1px solid ${agent.color}30`,
-                borderRadius: '12px',
-                padding: '20px',
-                borderLeft: `4px solid ${agent.color}`
-              }}>
-                <div style={{
-                  fontSize: '11px',
-                  fontWeight: '600',
-                  color: agent.color,
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  marginBottom: '6px'
-                }}>{agent.role}</div>
-                <div style={{
-                  fontSize: '17px',
-                  fontWeight: '600',
-                  color: '#f1f5f9',
-                  marginBottom: '8px'
-                }}>{agent.type}</div>
-                <div style={{
-                  fontSize: '13px',
-                  color: '#94a3b8',
-                  lineHeight: '1.5',
-                  marginBottom: '14px'
-                }}>{agent.desc}</div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
-                  {agent.tools.map((tool, j) => (
-                    <span key={j} style={{
-                      padding: '4px 10px',
-                      background: 'rgba(51, 65, 85, 0.6)',
-                      borderRadius: '4px',
-                      fontSize: '11px',
-                      color: '#cbd5e1'
-                    }}>{tool}</span>
-                  ))}
+            <!-- Technology Stack -->
+            <div class="card">
+                <h3 class="section-title">
+                    <span class="section-icon" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">◈</span>
+                    Technology Stack
+                </h3>
+                <div class="tech-category">
+                    <div class="tech-label" style="color: #10b981;">Frameworks</div>
+                    <div class="tech-items">
+                        <span class="tech-item" style="background: #10b98115; border: 1px solid #10b98130;">LangGraph</span>
+                        <span class="tech-item" style="background: #10b98115; border: 1px solid #10b98130;">AutoGen</span>
+                        <span class="tech-item" style="background: #10b98115; border: 1px solid #10b98130;">CrewAI</span>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Security & Governance */}
-        <div style={{
-          background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
-          border: '1px solid rgba(239, 68, 68, 0.2)',
-          borderRadius: '20px',
-          padding: '32px'
-        }}>
-          <h3 style={{
-            fontSize: '18px',
-            fontWeight: '600',
-            color: '#f1f5f9',
-            margin: '0 0 20px 0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px'
-          }}>
-            <span style={{
-              width: '32px',
-              height: '32px',
-              background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
-              borderRadius: '8px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '16px'
-            }}>⛨</span>
-            Enterprise Security & Governance Layer
-          </h3>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
-            gap: '16px'
-          }}>
-            {[
-              { icon: "🔐", label: "SSO / RBAC", desc: "Identity & Access" },
-              { icon: "📋", label: "Audit Logging", desc: "Full Traceability" },
-              { icon: "🛡️", label: "Data Encryption", desc: "At Rest & Transit" },
-              { icon: "⚖️", label: "Compliance", desc: "SOC2, GDPR, HIPAA" },
-              { icon: "🔒", label: "Guardrails", desc: "Output Filtering" },
-              { icon: "📊", label: "Rate Limiting", desc: "Cost Control" }
-            ].map((item, i) => (
-              <div key={i} style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '14px',
-                background: 'rgba(15, 23, 42, 0.5)',
-                borderRadius: '10px',
-                border: '1px solid rgba(148, 163, 184, 0.1)'
-              }}>
-                <span style={{ fontSize: '24px' }}>{item.icon}</span>
-                <div>
-                  <div style={{ fontWeight: '600', color: '#e2e8f0', fontSize: '14px' }}>{item.label}</div>
-                  <div style={{ color: '#64748b', fontSize: '12px' }}>{item.desc}</div>
+                <div class="tech-category">
+                    <div class="tech-label" style="color: #8b5cf6;">Platforms</div>
+                    <div class="tech-items">
+                        <span class="tech-item" style="background: #8b5cf615; border: 1px solid #8b5cf630;">AWS Bedrock</span>
+                        <span class="tech-item" style="background: #8b5cf615; border: 1px solid #8b5cf630;">Azure AI</span>
+                        <span class="tech-item" style="background: #8b5cf615; border: 1px solid #8b5cf630;">Vertex AI</span>
+                    </div>
                 </div>
-              </div>
-            ))}
-          </div>
+                <div class="tech-category">
+                    <div class="tech-label" style="color: #f59e0b;">Infrastructure</div>
+                    <div class="tech-items">
+                        <span class="tech-item" style="background: #f59e0b15; border: 1px solid #f59e0b30;">Pinecone</span>
+                        <span class="tech-item" style="background: #f59e0b15; border: 1px solid #f59e0b30;">Redis</span>
+                        <span class="tech-item" style="background: #f59e0b15; border: 1px solid #f59e0b30;">Kafka</span>
+                    </div>
+                </div>
+                <div class="tech-category">
+                    <div class="tech-label" style="color: #0ea5e9;">Observability</div>
+                    <div class="tech-items">
+                        <span class="tech-item" style="background: #0ea5e915; border: 1px solid #0ea5e930;">LangSmith</span>
+                        <span class="tech-item" style="background: #0ea5e915; border: 1px solid #0ea5e930;">Weights & Biases</span>
+                        <span class="tech-item" style="background: #0ea5e915; border: 1px solid #0ea5e930;">Datadog</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        {/* Footer */}
-        <footer style={{
-          textAlign: 'center',
-          marginTop: '40px',
-          paddingTop: '24px',
-          borderTop: '1px solid rgba(148, 163, 184, 0.1)'
-        }}>
-          <p style={{ color: '#64748b', fontSize: '13px', margin: 0 }}>
-            Enterprise Agentic AI Reference Architecture • Built for Production Scale
-          </p>
+        <!-- Agent Hierarchy -->
+        <div class="card">
+            <h3 class="section-title">
+                <span class="section-icon" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">⬡</span>
+                Agent Hierarchy & Coordination
+            </h3>
+            <div class="agents-grid">
+                <div class="agent-card" style="border-color: #8b5cf6;">
+                    <div class="agent-role" style="color: #8b5cf6;">Master Controller</div>
+                    <div class="agent-type">Orchestrator Agent</div>
+                    <div class="agent-desc">Decomposes tasks, routes to specialists, aggregates results</div>
+                    <div class="agent-tools">
+                        <span class="agent-tool">Planner</span>
+                        <span class="agent-tool">Router</span>
+                        <span class="agent-tool">Monitor</span>
+                    </div>
+                </div>
+                <div class="agent-card" style="border-color: #f59e0b;">
+                    <div class="agent-role" style="color: #f59e0b;">Specialist Workers</div>
+                    <div class="agent-type">Task Agents</div>
+                    <div class="agent-desc">Execute specific domain tasks with focused expertise</div>
+                    <div class="agent-tools">
+                        <span class="agent-tool">Code Gen</span>
+                        <span class="agent-tool">Data Analysis</span>
+                        <span class="agent-tool">Content</span>
+                    </div>
+                </div>
+                <div class="agent-card" style="border-color: #10b981;">
+                    <div class="agent-role" style="color: #10b981;">System Integrators</div>
+                    <div class="agent-type">Tool Agents</div>
+                    <div class="agent-desc">Interface with external APIs, databases, and services</div>
+                    <div class="agent-tools">
+                        <span class="agent-tool">API Caller</span>
+                        <span class="agent-tool">DB Query</span>
+                        <span class="agent-tool">File I/O</span>
+                    </div>
+                </div>
+                <div class="agent-card" style="border-color: #ef4444;">
+                    <div class="agent-role" style="color: #ef4444;">Quality Control</div>
+                    <div class="agent-type">Validator Agents</div>
+                    <div class="agent-desc">Verify outputs, check compliance, ensure accuracy</div>
+                    <div class="agent-tools">
+                        <span class="agent-tool">Fact Check</span>
+                        <span class="agent-tool">Schema Validate</span>
+                        <span class="agent-tool">Safety</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security & Governance -->
+        <div class="security-card">
+            <h3 class="section-title">
+                <span class="section-icon" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">⛨</span>
+                Enterprise Security & Governance Layer
+            </h3>
+            <div class="security-grid">
+                <div class="security-item">
+                    <span class="security-icon">🔐</span>
+                    <div>
+                        <div class="security-label">SSO / RBAC</div>
+                        <div class="security-desc">Identity & Access</div>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="security-icon">📋</span>
+                    <div>
+                        <div class="security-label">Audit Logging</div>
+                        <div class="security-desc">Full Traceability</div>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="security-icon">🛡️</span>
+                    <div>
+                        <div class="security-label">Data Encryption</div>
+                        <div class="security-desc">At Rest & Transit</div>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="security-icon">⚖️</span>
+                    <div>
+                        <div class="security-label">Compliance</div>
+                        <div class="security-desc">SOC2, GDPR, HIPAA</div>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="security-icon">🔒</span>
+                    <div>
+                        <div class="security-label">Guardrails</div>
+                        <div class="security-desc">Output Filtering</div>
+                    </div>
+                </div>
+                <div class="security-item">
+                    <span class="security-icon">📊</span>
+                    <div>
+                        <div class="security-label">Rate Limiting</div>
+                        <div class="security-desc">Cost Control</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Enterprise Agentic AI Reference Architecture • Built for Production Scale</p>
         </footer>
-      </div>
     </div>
-  );
-};
 
-export default EnterpriseAgenticArchitecture;
+    <script>
+        // Add interactive hover effects for layers
+        document.querySelectorAll('.layer').forEach(layer => {
+            layer.addEventListener('mouseenter', function() {
+                this.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+            });
+            layer.addEventListener('mouseleave', function() {
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add click-to-highlight functionality
+        document.querySelectorAll('.component').forEach(comp => {
+            comp.addEventListener('click', function() {
+                // Remove active state from all components
+                document.querySelectorAll('.component').forEach(c => {
+                    c.style.transform = 'scale(1)';
+                });
+                // Add active state to clicked component
+                this.style.transform = 'scale(1.05)';
+            });
+        });
+
+        // Smooth scroll for any internal navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add subtle parallax effect to orbs
+        document.addEventListener('mousemove', function(e) {
+            const orbs = document.querySelectorAll('.orb');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            orbs[0].style.transform = `translate(${x * 20}px, ${y * 20}px)`;
+            orbs[1].style.transform = `translate(${-x * 30}px, ${-y * 30}px)`;
+        });
+    </script>
+</body>
+</html>

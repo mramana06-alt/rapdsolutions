@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAPD AI Solutions — Enterprise AI Architecture</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700&family=Playfair+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0F1B2D;
+    --navy-mid: #1B2A4A;
+    --navy-light: #2B3162;
+    --teal: #0891B2;
+    --teal-dark: #0E7490;
+    --teal-light: #06B6D4;
+    --teal-bg: #E0F7FA;
+    --copper: #C2652A;
+    --copper-bg: #FDF0EA;
+    --green: #059669;
+    --green-light: #10B981;
+    --purple: #7C3AED;
+    --red: #DC2626;
+    --amber: #D97706;
+    --white: #FFFFFF;
+    --off-white: #F0F4F8;
+    --gray-100: #F8FAFC;
+    --gray-200: #E2E8F0;
+    --gray-300: #CBD5E1;
+    --gray-400: #94A3B8;
+    --gray-500: #64748B;
+    --gray-600: #475569;
+    --gray-700: #334155;
+    --gray-800: #1E293B;
+    --blue: #2563EB;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--off-white);
+    color: var(--gray-800);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(15, 27, 45, 0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(8, 145, 178, 0.2);
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo {
+    font-family: var(--font-body);
+    font-weight: 700; font-size: 0.95rem;
+    color: var(--white);
+    letter-spacing: 0.5px;
+  }
+  nav .logo span { color: var(--teal); }
+  nav ul {
+    list-style: none; display: flex; gap: 1.5rem;
+  }
+  nav ul li a {
+    color: var(--gray-400); text-decoration: none;
+    font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+  }
+  nav ul li a:hover { color: var(--teal-light); }
+
+  /* ===== SECTIONS ===== */
+  section {
+    min-height: 100vh;
+    padding: 7rem 2rem 4rem;
+    position: relative;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* ===== HERO (Slide 1) ===== */
+  .hero {
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light), var(--green-light));
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(8,145,178,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(124,58,237,0.05) 0%, transparent 50%);
+  }
+  .hero-content { position: relative; z-index: 1; }
+  .hero .brain-icon {
+    width: 80px; height: 80px;
+    margin: 0 auto 2rem;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.5rem;
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 1.2rem;
+  }
+  .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--gray-400);
+    max-width: 550px;
+    margin: 0 auto 3rem;
+  }
+  .hero .badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border: 1px solid rgba(8,145,178,0.3);
+    border-radius: 999px;
+    color: var(--gray-400);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===== AGENDA (Slide 2) ===== */
+  .agenda { background: var(--gray-100); }
+  .section-label {
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 2.5rem;
+    line-height: 1.15;
+  }
+  .section-title::after {
+    content: '';
+    display: block;
+    width: 60px; height: 3px;
+    background: var(--teal);
+    margin-top: 0.6rem;
+    border-radius: 2px;
+  }
+  .agenda-grid {
+    display: grid;
+    gap: 1rem;
+    max-width: 700px;
+  }
+  .agenda-item {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--white);
+    border-radius: 12px;
+    border-left: 4px solid var(--teal);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .agenda-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .agenda-num {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .agenda-text h3 { font-size: 1rem; font-weight: 700; color: var(--gray-800); }
+  .agenda-text p { font-size: 0.85rem; color: var(--gray-500); margin-top: 0.15rem; }
+
+  /* ===== WHY AI (Slide 3) ===== */
+  .why-ai { background: var(--gray-100); }
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 2rem 1.8rem;
+    text-align: center;
+    border-top: 4px solid var(--teal);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: transform 0.2s;
+  }
+  .stat-card:hover { transform: translateY(-4px); }
+  .stat-card .icon {
+    font-size: 2rem;
+    color: var(--teal);
+    margin-bottom: 0.8rem;
+  }
+  .stat-card .number {
+    font-family: var(--font-display);
+    font-size: 3rem; font-weight: 900;
+    color: var(--teal);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-card .label {
+    font-size: 0.9rem; color: var(--gray-500);
+  }
+  .callout {
+    background: var(--white);
+    border-left: 4px solid var(--amber);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: var(--gray-600);
+    font-size: 0.95rem;
+  }
+
+  /* ===== LAYERED ARCHITECTURE (Slide 4) ===== */
+  .architecture { background: var(--gray-100); }
+  .arch-layout {
+    display: grid;
+    grid-template-columns: 1fr 240px;
+    gap: 1.5rem;
+  }
+  @media (max-width: 768px) {
+    .arch-layout { grid-template-columns: 1fr; }
+  }
+  .arch-layers { display: grid; gap: 0.8rem; }
+  .arch-layer {
+    padding: 1.3rem 1.6rem;
+    border-radius: 10px;
+    color: var(--white);
+    transition: transform 0.2s;
+  }
+  .arch-layer:hover { transform: translateX(6px); }
+  .arch-layer h3 {
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+  .arch-layer p { font-size: 0.85rem; opacity: 0.85; }
+  .layer-1 { background: var(--teal); }
+  .layer-2 { background: var(--teal-dark); }
+  .layer-3 { background: var(--navy-mid); }
+  .layer-4 { background: var(--navy); }
+
+  .arch-sidebar {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.5rem;
+    border-left: 4px solid var(--amber);
+    display: flex; flex-direction: column; gap: 1.5rem;
+    justify-content: center;
+  }
+  .sidebar-item { text-align: center; }
+  .sidebar-item .icon { font-size: 2rem; color: var(--teal); margin-bottom: 0.3rem; }
+  .sidebar-item h4 { font-size: 0.85rem; color: var(--gray-700); font-weight: 600; }
+
+  /* ===== DATA FOUNDATION (Slide 5) ===== */
+  .data-foundation { background: var(--white); }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .card {
+    background: var(--gray-100);
+    border-radius: 14px;
+    padding: 2rem;
+    border-left: 4px solid var(--teal);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .card .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card h3 {
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.6rem;
+  }
+  .card p { font-size: 0.88rem; color: var(--gray-500); line-height: 1.6; }
+
+  /* ===== AI/ML PLATFORM (Slide 6) ===== */
+  .ml-platform { background: var(--gray-100); }
+  .process-flow {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .process-flow { grid-template-columns: repeat(2, 1fr); }
+  }
+  .process-step {
+    text-align: center;
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    border-top: 3px solid var(--teal);
+    position: relative;
+  }
+  .process-step .step-num {
+    width: 40px; height: 40px;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1rem;
+    margin: 0 auto 0.8rem;
+  }
+  .process-step h4 { font-size: 1rem; font-weight: 700; color: var(--gray-800); margin-bottom: 0.4rem; }
+  .process-step p { font-size: 0.8rem; color: var(--gray-500); }
+  .tech-bar {
+    background: var(--navy);
+    color: var(--white);
+    border-radius: 10px;
+    padding: 1.2rem 1.8rem;
+  }
+  .tech-bar h4 {
+    color: var(--teal-light);
+    font-size: 0.8rem; font-weight: 700;
+    letter-spacing: 1px; text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+  .tech-bar p { font-size: 0.88rem; color: var(--gray-400); }
+
+  /* ===== GEN AI (Slide 7) ===== */
+  .gen-ai { background: var(--white); }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+  .panel {
+    background: var(--gray-100);
+    border-radius: 14px;
+    padding: 2rem;
+  }
+  .panel h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem; font-weight: 800;
+    color: var(--gray-800);
+    margin-bottom: 1.5rem;
+  }
+  .rag-step {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.3rem;
+    position: relative;
+  }
+  .rag-step::after {
+    content: '';
+    position: absolute;
+    left: 17px; top: 38px; bottom: -12px;
+    width: 2px;
+    background: var(--gray-300);
+  }
+  .rag-step:last-child::after { display: none; }
+  .rag-num {
+    width: 36px; height: 36px; flex-shrink: 0;
+    background: var(--teal);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 0.85rem;
+    position: relative; z-index: 1;
+  }
+  .rag-step h4 { font-size: 0.95rem; font-weight: 700; color: var(--gray-800); }
+  .rag-step p { font-size: 0.82rem; color: var(--gray-500); margin-top: 0.1rem; }
+  .cap-item {
+    display: flex; align-items: flex-start; gap: 0.8rem;
+    margin-bottom: 1.2rem;
+  }
+  .cap-check {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: var(--green);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; font-weight: 700;
+  }
+  .cap-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--gray-800); }
+  .cap-item p { font-size: 0.82rem; color: var(--gray-500); margin-top: 0.1rem; }
+
+  /* ===== SECURITY (Slide 8) ===== */
+  .security {
+    background: var(--navy);
+    color: var(--white);
+  }
+  .security .section-title { color: var(--white); }
+  .security .section-title::after { background: var(--teal); }
+  .sec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .sec-card {
+    background: var(--navy-mid);
+    border-radius: 14px;
+    padding: 2rem;
+    border-top: 3px solid var(--teal);
+  }
+  .sec-card .icon {
+    width: 50px; height: 50px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .sec-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; }
+  .sec-card ul { list-style: none; }
+  .sec-card ul li {
+    padding: 0.4rem 0;
+    font-size: 0.88rem;
+    color: var(--gray-400);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .sec-card ul li::before {
+    content: '✓';
+    color: var(--teal-light);
+    font-weight: 700;
+  }
+
+  /* ===== MATURITY (Slide 9) ===== */
+  .maturity { background: var(--gray-100); }
+  .maturity-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    height: 380px;
+    padding-top: 1rem;
+  }
+  @media (max-width: 768px) {
+    .maturity-bars { height: 300px; }
+  }
+  .maturity-bar {
+    flex: 1;
+    border-radius: 10px 10px 0 0;
+    padding: 1.2rem 0.8rem;
+    display: flex; flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
+    color: var(--white);
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .maturity-bar:hover { transform: translateY(-4px); }
+  .maturity-bar .level-label {
+    font-size: 0.7rem; opacity: 0.7;
+    margin-bottom: 0.2rem;
+  }
+  .maturity-bar h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .maturity-bar p { font-size: 0.72rem; opacity: 0.7; }
+  .bar-1 { height: 40%; background: var(--gray-400); }
+  .bar-2 { height: 55%; background: var(--gray-600); }
+  .bar-3 { height: 70%; background: var(--navy-mid); }
+  .bar-4 { height: 85%; background: var(--navy-light); }
+  .bar-5 { height: 100%; background: var(--teal); }
+  .you-are-here {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.4rem 1rem;
+    background: var(--amber);
+    color: var(--white);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== ROADMAP (Slide 10) ===== */
+  .roadmap { background: var(--white); }
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    position: relative;
+  }
+  @media (max-width: 768px) {
+    .timeline { grid-template-columns: repeat(2, 1fr); }
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 5%; right: 5%;
+    height: 3px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+  .phase {
+    position: relative;
+    padding-top: 3.5rem;
+  }
+  .phase-dot {
+    position: absolute;
+    top: 10px; left: 50%;
+    transform: translateX(-50%);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--teal);
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 3px var(--teal);
+  }
+  .phase-card {
+    background: var(--gray-100);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border-top: 3px solid var(--teal);
+  }
+  .phase-label {
+    font-size: 0.7rem; color: var(--gray-500);
+    font-weight: 600; letter-spacing: 0.5px;
+    margin-bottom: 0.2rem;
+  }
+  .phase-card h4 {
+    font-size: 1.05rem; font-weight: 700;
+    color: var(--gray-800);
+    margin-bottom: 0.8rem;
+  }
+  .phase-card ul { list-style: none; }
+  .phase-card ul li {
+    font-size: 0.82rem; color: var(--gray-600);
+    padding: 0.25rem 0;
+  }
+  .phase-card ul li::before {
+    content: '→ ';
+    color: var(--teal);
+    font-weight: 700;
+  }
+
+  /* ===== METRICS (Slide 11) ===== */
+  .metrics { background: var(--gray-100); }
+  .metrics-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (max-width: 768px) {
+    .metrics-layout { grid-template-columns: 1fr; }
+  }
+  .bar-chart {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 2rem;
+  }
+  .chart-bars { display: flex; align-items: flex-end; gap: 1.2rem; height: 220px; padding-top: 1rem; }
+  .chart-bar {
+    flex: 1;
+    display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  }
+  .chart-bar .value {
+    font-size: 0.85rem; font-weight: 700; color: var(--gray-800);
+    margin-bottom: 0.3rem;
+  }
+  .chart-bar .bar-fill {
+    width: 100%;
+    background: var(--teal);
+    border-radius: 6px 6px 0 0;
+    min-height: 10px;
+    transition: height 0.8s ease;
+  }
+  .chart-bar .bar-label {
+    font-size: 0.7rem; color: var(--gray-500);
+    margin-top: 0.4rem; text-align: center;
+  }
+  .kpi-stack { display: grid; gap: 0.8rem; }
+  .kpi-item {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 1.1rem 1.4rem;
+    border-left: 4px solid var(--teal);
+    display: flex; align-items: baseline; gap: 0.8rem;
+  }
+  .kpi-item .kpi-value {
+    font-family: var(--font-display);
+    font-size: 1.6rem; font-weight: 800;
+    color: var(--teal);
+  }
+  .kpi-item .kpi-label { font-size: 0.85rem; color: var(--gray-500); }
+
+  /* ===== CTA / CLOSING (Slide 12) ===== */
+  .closing {
+    background: var(--navy);
+    color: var(--white);
+    text-align: center;
+    display: flex; align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal), var(--teal-light), var(--green-light));
+  }
+  .closing h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+  }
+  .closing .tagline {
+    font-size: 1.1rem;
+    color: var(--gray-400);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+  .closing .divider {
+    width: 200px; height: 3px;
+    background: var(--teal);
+    margin: 0 auto 1.5rem;
+    border-radius: 2px;
+  }
+  .closing .cta-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--teal-light);
+  }
+  .closing .footer-line {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 0; right: 0;
+    font-size: 0.75rem;
+    color: var(--gray-500);
+  }
+
+  /* ===== SCROLL ANIMATIONS ===== */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">RAPD <span>AI Solutions</span></div>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#platform">Platform</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+  </ul>
+</nav>
+
+<!-- SLIDE 1: HERO -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="brain-icon">🧠</div>
+    <h1>Enterprise AI<br>Architecture</h1>
+    <p class="subtitle">A Strategic Blueprint for Scalable, Secure, and Intelligent Systems</p>
+    <span class="badge">Confidential · 2026</span>
+  </div>
+</section>
+
+<!-- SLIDE 2: AGENDA -->
+<section class="agenda" id="agenda">
+  <div class="container">
+    <div class="section-label">Overview</div>
+    <h2 class="section-title fade-up">Agenda</h2>
+    <div class="agenda-grid">
+      <div class="agenda-item fade-up stagger-1">
+        <div class="agenda-num">01</div>
+        <div class="agenda-text"><h3>Why Enterprise AI?</h3><p>Business drivers and strategic imperative</p></div>
+      </div>
+      <div class="agenda-item fade-up stagger-2">
+        <div class="agenda-num">02</div>
+        <div class="agenda-text"><h3>Architecture Overview</h3><p>Layered architecture and key components</p></div>
+      </div>
+      <div class="agenda-item fade-up stagger-3">
+        <div class="agenda-num">03</div>
+        <div class="agenda-text"><h3>Data Foundation</h3><p>Data lakehouse, pipelines, and governance</p></div>
+      </div>
+      <div class="agenda-item fade-up stagger-4">
+        <div class="agenda-num">04</div>
+        <div class="agenda-text"><h3>AI/ML Platform</h3><p>Training, serving, and MLOps lifecycle</p></div>
+      </div>
+      <div class="agenda-item fade-up stagger-5">
+        <div class="agenda-num">05</div>
+        <div class="agenda-text"><h3>Security &amp; Governance</h3><p>Responsible AI, compliance, and risk management</p></div>
+      </div>
+      <div class="agenda-item fade-up stagger-6">
+        <div class="agenda-num">06</div>
+        <div class="agenda-text"><h3>Implementation Roadmap</h3><p>Phased approach and success metrics</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: WHY ENTERPRISE AI -->
+<section class="why-ai" id="why-ai">
+  <div class="container">
+    <div class="section-label">The Imperative</div>
+    <h2 class="section-title fade-up">Why Enterprise AI?</h2>
+    <div class="stats-row">
+      <div class="stat-card fade-up stagger-1">
+        <div class="icon">📊</div>
+        <div class="number">72%</div>
+        <div class="label">of enterprises plan to scale AI by 2027</div>
+      </div>
+      <div class="stat-card fade-up stagger-2">
+        <div class="icon">🧠</div>
+        <div class="number">$4.4T</div>
+        <div class="label">annual value AI could add to the global economy</div>
+      </div>
+      <div class="stat-card fade-up stagger-3">
+        <div class="icon">🚀</div>
+        <div class="number">40%</div>
+        <div class="label">productivity gains reported by early AI adopters</div>
+      </div>
+    </div>
+    <div class="callout fade-up">
+      Organizations that fail to adopt AI at scale risk losing competitive advantage across cost efficiency, customer experience, and innovation velocity.
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: LAYERED ARCHITECTURE -->
+<section class="architecture" id="architecture">
+  <div class="container">
+    <div class="section-label">Blueprint</div>
+    <h2 class="section-title fade-up">Layered Architecture Overview</h2>
+    <div class="arch-layout">
+      <div class="arch-layers">
+        <div class="arch-layer layer-1 fade-up stagger-1">
+          <h3>Presentation Layer</h3>
+          <p>Dashboards, Chatbots, APIs, Applications</p>
+        </div>
+        <div class="arch-layer layer-2 fade-up stagger-2">
+          <h3>AI / ML Platform</h3>
+          <p>Model Training, Serving, MLOps, Feature Store</p>
+        </div>
+        <div class="arch-layer layer-3 fade-up stagger-3">
+          <h3>Data Platform</h3>
+          <p>Data Lakehouse, ETL/ELT, Streaming, Cataloging</p>
+        </div>
+        <div class="arch-layer layer-4 fade-up stagger-4">
+          <h3>Infrastructure</h3>
+          <p>Cloud / Hybrid, GPU Clusters, Kubernetes, Storage</p>
+        </div>
+      </div>
+      <div class="arch-sidebar fade-up stagger-3">
+        <div class="sidebar-item"><div class="icon">🔒</div><h4>Security &amp; Compliance</h4></div>
+        <div class="sidebar-item"><div class="icon">🔄</div><h4>Monitoring &amp; Observability</h4></div>
+        <div class="sidebar-item"><div class="icon">🛡️</div><h4>Governance &amp; Ethics</h4></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: DATA FOUNDATION -->
+<section class="data-foundation" id="data-foundation">
+  <div class="container">
+    <div class="section-label">Data Layer</div>
+    <h2 class="section-title fade-up">Data Foundation</h2>
+    <div class="cards-grid">
+      <div class="card fade-up stagger-1">
+        <div class="card-icon">🗄️</div>
+        <h3>Data Lakehouse</h3>
+        <p>Unified storage combining data lake flexibility with warehouse performance. Supports structured, semi-structured, and unstructured data.</p>
+      </div>
+      <div class="card fade-up stagger-2">
+        <div class="card-icon">🔄</div>
+        <h3>Data Pipelines</h3>
+        <p>Real-time and batch ingestion with ELT/ETL workflows. Event-driven architecture for streaming analytics.</p>
+      </div>
+      <div class="card fade-up stagger-3">
+        <div class="card-icon">🛡️</div>
+        <h3>Data Governance</h3>
+        <p>Automated data quality checks, lineage tracking, master data management, and access controls.</p>
+      </div>
+      <div class="card fade-up stagger-4">
+        <div class="card-icon">📦</div>
+        <h3>Feature Store</h3>
+        <p>Centralized repository for ML features with versioning, serving, and monitoring capabilities.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: AI/ML PLATFORM -->
+<section class="ml-platform" id="platform">
+  <div class="container">
+    <div class="section-label">MLOps Lifecycle</div>
+    <h2 class="section-title fade-up">AI / ML Platform</h2>
+    <div class="process-flow">
+      <div class="process-step fade-up stagger-1">
+        <div class="step-num">1</div>
+        <h4>Experiment</h4>
+        <p>Notebook environments, hyperparameter tuning, experiment tracking</p>
+      </div>
+      <div class="process-step fade-up stagger-2">
+        <div class="step-num">2</div>
+        <h4>Train</h4>
+        <p>Distributed training on GPU clusters, automated retraining</p>
+      </div>
+      <div class="process-step fade-up stagger-3">
+        <div class="step-num">3</div>
+        <h4>Validate</h4>
+        <p>Model evaluation, bias testing, explainability analysis</p>
+      </div>
+      <div class="process-step fade-up stagger-4">
+        <div class="step-num">4</div>
+        <h4>Deploy</h4>
+        <p>Containerized serving, A/B testing, canary rollouts</p>
+      </div>
+      <div class="process-step fade-up stagger-5">
+        <div class="step-num">5</div>
+        <h4>Monitor</h4>
+        <p>Drift detection, performance alerts, feedback loops</p>
+      </div>
+    </div>
+    <div class="tech-bar fade-up">
+      <h4>Key Technologies</h4>
+      <p>Kubernetes · MLflow · Kubeflow · TensorFlow / PyTorch · Triton Inference Server · Weights &amp; Biases · Seldon Core</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: GENERATIVE AI -->
+<section class="gen-ai" id="gen-ai">
+  <div class="container">
+    <div class="section-label">GenAI</div>
+    <h2 class="section-title fade-up">Generative AI Architecture</h2>
+    <div class="two-col">
+      <div class="panel fade-up stagger-1">
+        <h3>RAG Architecture</h3>
+        <div class="rag-step">
+          <div class="rag-num">1</div>
+          <div><h4>User Query</h4><p>Natural language input</p></div>
+        </div>
+        <div class="rag-step">
+          <div class="rag-num">2</div>
+          <div><h4>Embedding &amp; Retrieval</h4><p>Vector search over knowledge base</p></div>
+        </div>
+        <div class="rag-step">
+          <div class="rag-num">3</div>
+          <div><h4>Context Augmentation</h4><p>Relevant docs injected into prompt</p></div>
+        </div>
+        <div class="rag-step">
+          <div class="rag-num">4</div>
+          <div><h4>LLM Generation</h4><p>Grounded, accurate response</p></div>
+        </div>
+      </div>
+      <div class="panel fade-up stagger-2">
+        <h3>Key Capabilities</h3>
+        <div class="cap-item">
+          <div class="cap-check">✓</div>
+          <div><h4>Foundation Models</h4><p>GPT-4, Claude, Llama, Gemini — API and self-hosted</p></div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-check">✓</div>
+          <div><h4>Fine-Tuning</h4><p>Domain-specific adaptation with LoRA, QLoRA, RLHF</p></div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-check">✓</div>
+          <div><h4>Prompt Engineering</h4><p>Guardrails, templates, chain-of-thought, tool use</p></div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-check">✓</div>
+          <div><h4>Vector Databases</h4><p>Pinecone, Weaviate, pgvector for semantic search</p></div>
+        </div>
+        <div class="cap-item">
+          <div class="cap-check">✓</div>
+          <div><h4>AI Agents</h4><p>Multi-step reasoning, tool orchestration, memory</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: SECURITY -->
+<section class="security" id="security">
+  <div class="container">
+    <div class="section-label" style="color: var(--teal-light)">Trust &amp; Safety</div>
+    <h2 class="section-title fade-up">Security &amp; AI Governance</h2>
+    <div class="sec-grid">
+      <div class="sec-card fade-up stagger-1">
+        <div class="icon">🛡️</div>
+        <h3>Data Security</h3>
+        <ul>
+          <li>End-to-end encryption</li>
+          <li>Role-based access control</li>
+          <li>Data masking &amp; anonymization</li>
+          <li>Audit trail logging</li>
+        </ul>
+      </div>
+      <div class="sec-card fade-up stagger-2">
+        <div class="icon">⚙️</div>
+        <h3>Model Governance</h3>
+        <ul>
+          <li>Model registry &amp; versioning</li>
+          <li>Bias &amp; fairness testing</li>
+          <li>Explainability reports</li>
+          <li>Approval workflows</li>
+        </ul>
+      </div>
+      <div class="sec-card fade-up stagger-3">
+        <div class="icon">☁️</div>
+        <h3>Compliance</h3>
+        <ul>
+          <li>GDPR &amp; CCPA adherence</li>
+          <li>SOC 2 Type II certified</li>
+          <li>Industry-specific regs</li>
+          <li>Regular penetration testing</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: AI MATURITY -->
+<section class="maturity" id="maturity">
+  <div class="container">
+    <div class="section-label">Assessment</div>
+    <h2 class="section-title fade-up">AI Maturity Model</h2>
+    <div class="maturity-bars fade-up">
+      <div class="maturity-bar bar-1">
+        <div class="level-label">Level 1</div>
+        <h4>Exploring</h4>
+        <p>Ad hoc experiments, no infrastructure</p>
+      </div>
+      <div class="maturity-bar bar-2">
+        <div class="level-label">Level 2</div>
+        <h4>Experimenting</h4>
+        <p>Pilot projects, basic tooling</p>
+        <div class="you-are-here">▸ YOU ARE HERE</div>
+      </div>
+      <div class="maturity-bar bar-3">
+        <div class="level-label">Level 3</div>
+        <h4>Formalizing</h4>
+        <p>MLOps, governance, repeatable</p>
+      </div>
+      <div class="maturity-bar bar-4">
+        <div class="level-label">Level 4</div>
+        <h4>Optimizing</h4>
+        <p>Scaled deployment, continuous improvement</p>
+      </div>
+      <div class="maturity-bar bar-5">
+        <div class="level-label">Level 5</div>
+        <h4>Transforming</h4>
+        <p>AI-first culture, autonomous systems</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 10: ROADMAP -->
+<section class="roadmap" id="roadmap">
+  <div class="container">
+    <div class="section-label">Execution Plan</div>
+    <h2 class="section-title fade-up">Implementation Roadmap</h2>
+    <div class="timeline">
+      <div class="phase fade-up stagger-1">
+        <div class="phase-dot"></div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 1 · Q1–Q2 2026</div>
+          <h4>Foundation</h4>
+          <ul>
+            <li>Cloud infrastructure setup</li>
+            <li>Data platform deployment</li>
+            <li>Team training &amp; hiring</li>
+            <li>Governance framework</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase fade-up stagger-2">
+        <div class="phase-dot"></div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 2 · Q3–Q4 2026</div>
+          <h4>Build</h4>
+          <ul>
+            <li>MLOps pipeline launch</li>
+            <li>First model deployments</li>
+            <li>RAG/GenAI prototypes</li>
+            <li>Security hardening</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase fade-up stagger-3">
+        <div class="phase-dot"></div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 3 · Q1–Q2 2027</div>
+          <h4>Scale</h4>
+          <ul>
+            <li>Production GenAI apps</li>
+            <li>Cross-team adoption</li>
+            <li>Advanced analytics</li>
+            <li>Performance optimization</li>
+          </ul>
+        </div>
+      </div>
+      <div class="phase fade-up stagger-4">
+        <div class="phase-dot"></div>
+        <div class="phase-card">
+          <div class="phase-label">Phase 4 · Q3+ 2027</div>
+          <h4>Transform</h4>
+          <ul>
+            <li>AI-first operations</li>
+            <li>Autonomous systems</li>
+            <li>Industry-leading AI</li>
+            <li>Continuous innovation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 11: METRICS -->
+<section class="metrics" id="metrics">
+  <div class="container">
+    <div class="section-label">Measurement</div>
+    <h2 class="section-title fade-up">Success Metrics &amp; KPIs</h2>
+    <div class="metrics-layout">
+      <div class="bar-chart fade-up stagger-1">
+        <div class="chart-bars">
+          <div class="chart-bar">
+            <div class="value">95</div>
+            <div class="bar-fill" style="height: 95%"></div>
+            <div class="bar-label">Model Accuracy</div>
+          </div>
+          <div class="chart-bar">
+            <div class="value">70</div>
+            <div class="bar-fill" style="height: 70%"></div>
+            <div class="bar-label">Time to Deploy</div>
+          </div>
+          <div class="chart-bar">
+            <div class="value">60</div>
+            <div class="bar-fill" style="height: 60%"></div>
+            <div class="bar-label">Cost per Inference</div>
+          </div>
+          <div class="chart-bar">
+            <div class="value">85</div>
+            <div class="bar-fill" style="height: 85%"></div>
+            <div class="bar-label">Data Quality</div>
+          </div>
+          <div class="chart-bar">
+            <div class="value">80</div>
+            <div class="bar-fill" style="height: 80%"></div>
+            <div class="bar-label">User Adoption</div>
+          </div>
+        </div>
+      </div>
+      <div class="kpi-stack fade-up stagger-2">
+        <div class="kpi-item">
+          <div class="kpi-value">&lt;30d</div>
+          <div class="kpi-label">Model deployment cycle</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">99.9%</div>
+          <div class="kpi-label">Platform uptime SLA</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">3×</div>
+          <div class="kpi-label">ROI within 18 months</div>
+        </div>
+        <div class="kpi-item">
+          <div class="kpi-value">100%</div>
+          <div class="kpi-label">Models governed &amp; auditable</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 12: CLOSING -->
+<section class="closing" id="closing">
+  <div class="container">
+    <div style="font-size: 3rem; margin-bottom: 1rem;">🚀</div>
+    <h2>Ready to Build the Future?</h2>
+    <p class="tagline">Enterprise AI isn't just technology — it's a strategic transformation.<br>Let's architect it together.</p>
+    <div class="divider"></div>
+    <div class="cta-text">Questions &amp; Discussion</div>
+    <div class="footer-line">Enterprise AI Architecture · Confidential · 2026</div>
+  </div>
+</section>
+
+<script>
+// Intersection Observer for scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Smooth nav highlight
+document.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

@@ -73,3 +73,12 @@
 .conv-latest .blk { margin: 0; }
 /* the view switcher in the header: icon only on phones */
 @container stage (max-width: 560px) { .fx-conversation .cv-switch span { display: none; } }
+
+/* the brand is the home button */
+button.cv-brand { width: 100%; border: 0; background: none; font: inherit; color: inherit; text-align: left; cursor: pointer; }
+button.cv-brand:focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 10px; }
+/* narrow screens (no sidebar): the logo in the header is the home button */
+.cv-home { display: none; border: 0; background: none; padding: 0; margin-right: 10px; cursor: pointer; flex: none; }
+.cv-home .mono { width: 34px; height: 34px; }
+@container stage (max-width: 980px) { .cv-home { display: inline-flex; } .cv-top { justify-content: flex-start; } .cv-top-r { margin-left: auto; } }
+@container stage (max-width: 560px) { .cv-top .cv-rep .avatar { display: none; } }

@@ -523,13 +523,13 @@
 @keyframes jr-approve { 0%, 45% { fill: var(--surface); stroke-dasharray: 4 3; } 55%, 100% { fill: var(--brand); stroke-dasharray: 0; } }
 @keyframes jr-approve-t { 0%, 45% { fill: var(--brand-text); } 55%, 100% { fill: var(--on-brand); } }
 .jr-chip { transform-box: fill-box; }
-.jr-stages { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.jr-stages { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
 .jr-stages button { width: 100%; display: flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink-2); font-size: 14px; font-weight: 600; cursor: pointer; text-align: left; }
 .jr-stages button[aria-current] { border-color: var(--brand); color: var(--ink); background: var(--brand-soft); }
 .jr-n { flex: none; width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12.5px; background: var(--bg-2); color: var(--ink-2); }
 .jr-stages button[aria-current] .jr-n { background: var(--brand); color: var(--on-brand); }
-.jr-line { margin: 16px 0 0; font-size: 18px; font-weight: 600; line-height: 1.45; color: var(--ink); min-height: 2.9em; }
-.jr-bar { margin-top: 12px; height: 4px; border-radius: 4px; background: var(--bg-2); overflow: hidden; }
+.jr-line { margin: 14px 0 0; font-size: 18px; font-weight: 600; line-height: 1.45; color: var(--ink); min-height: 2.9em; }
+.jr-bar { margin: 10px 0 18px; height: 4px; border-radius: 4px; background: var(--bg-2); overflow: hidden; }
 .jr-bar span { display: block; height: 100%; width: 0; background: var(--brand); }
 .jr-static { display: none; }
 
